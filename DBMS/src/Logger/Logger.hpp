@@ -7,6 +7,7 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <thread>
 
 namespace Logger {
 
@@ -57,12 +58,13 @@ namespace Logger {
 
 
 inline Logger::Logger& getLogger() {
-
 	std::string path = "data.log";
 	static Logger::Logger logger(path);
 
 	return logger;
 }
+
+// TODO: Realize thread that will LOGS
 
 #define STR_(x) #x
 #define STR(x) STR_(x)

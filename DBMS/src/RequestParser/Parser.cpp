@@ -1,21 +1,6 @@
-#include "Parser.h"
+#include "Parser.hpp"
 
 namespace Parser {
-
-	enum KeyWord {
-		DB,
-		INT,
-		DOUBLE,
-		STR,
-		ADD,
-		CHANGE,
-		REMOVE,
-		END
-	};
-
-	static inline std::array<std::string, KeyWord::END + 1u> keyWords{
-		"DB", "INT", "DOUBLE", "STR", "ADD", "CHANGE", "REMOVE", "END"
-	};
 
 	uint16_t getCountOfSpaces(std::string str) {
 		uint16_t count = 0;
@@ -37,7 +22,7 @@ namespace Parser {
 				position = -1;
 				break;
 			} else if (str[i] == ' ') {
-				position = i;
+				position = (int)i;
 				break;
 			}
 		}
@@ -71,7 +56,7 @@ namespace Parser {
 		}
 
 		uint16_t countOfWords = getCountOfSpaces(temp);
-		countOfWords++; //before the first whitespace and after the second whitespace
+		countOfWords++; //before the first whitespace whitespace
 
 		for (uint16_t i = 0; i < countOfWords; i++) {
 			std::string str = getSubStr(temp);
@@ -87,17 +72,21 @@ namespace Parser {
 		//if str != db request will return false, else true
 		size_t lastPos = buffer.size() - 1;
 		bool returnableValue = 
-			(buffer.at(0)._Equal(*keyWords.begin())) && (buffer.at(lastPos)._Equal(keyWords[keyWords.size() - 1]));
+			(buffer.at(0)._Equal(*keyWords.begin())) && 
+			(buffer.at(lastPos)._Equal(keyWords[keyWords.size() - 1]));
 
 		if (returnableValue) {
 			INFO_LOG("Your commands is:");
 			for (auto& str : buffer) {
-				INFO_LOG("<" + str + ">");
+				TRACE_LOG("<" + str + ">");
 			}
+			INFO_LOG("End of command!");
 		} else {
 			ERROR_LOG("Isn't database request!");
 		}
 		
 		return returnableValue;
 	}
+
+	
 }

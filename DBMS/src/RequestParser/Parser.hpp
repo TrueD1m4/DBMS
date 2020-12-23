@@ -10,9 +10,25 @@
 #include <iostream>
 #include <algorithm>
 
-#include "../Logger/Logger.h"
+#include "../Logger/Logger.hpp"
+#include "../DataHandler/DataHandler.hpp"
 
 namespace Parser {
+
+	enum KeyWord {
+		DB,
+		INT,
+		DOUBLE,
+		STR,
+		ADD,
+		CHANGE,
+		REMOVE,
+		END
+	};
+
+	static inline std::array<std::string, KeyWord::END + 1u> keyWords {
+		"DB", "INT", "DOUBLE", "STR", "ADD", "CHANGE", "REMOVE", "END"
+	};
 
 	uint16_t getCountOfSpaces(std::string str);
 

@@ -1,10 +1,8 @@
 ﻿#pragma once
 
-#include "src/Menu.h"
-#include "src/DataHandler.h"
-#include "src/Logger.h"
-#include "src/Parser.h"
+#include "src/Menu.hpp"
+#include "src/DataHandler/DataHandler.hpp"
+#include "src/Logger/Logger.hpp"
+#include "src/RequestParser/Parser.hpp"
 
 #define VERSION 0.0.1
-
-// TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
