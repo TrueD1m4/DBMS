@@ -2,8 +2,8 @@
 
 namespace Parser {
 
-	uint16_t getCountOfSpaces(std::string str) {
-		uint16_t count = 0;
+	u16 getCountOfSpaces(std::string str) {
+		u16 count = 0;
 
 		for (size_t i = 0; i < str.length(); i++) {
 			if (str[i] == ' ') {
@@ -55,10 +55,10 @@ namespace Parser {
 			return false;
 		}
 
-		uint16_t countOfWords = getCountOfSpaces(temp);
+		u16 countOfWords = getCountOfSpaces(temp);
 		countOfWords++; //before the first whitespace whitespace
 
-		for (uint16_t i = 0; i < countOfWords; i++) {
+		for (u16 i = 0; i < countOfWords; i++) {
 			std::string str = getSubStr(temp);
 
 			if (str._Equal("0")) {
@@ -71,7 +71,14 @@ namespace Parser {
 
 		//if str != db request will return false, else true
 		size_t lastPos = buffer.size() - 1;
-		bool returnableValue = 
+
+		//transform vec of str's to uppercase
+		bool returnableValue = keyWordsToUpper(buffer);
+		if (!returnableValue) {
+			return false;
+		}
+
+		returnableValue = 
 			(buffer.at(0)._Equal(*keyWords.begin())) && 
 			(buffer.at(lastPos)._Equal(keyWords[keyWords.size() - 1]));
 
@@ -83,10 +90,85 @@ namespace Parser {
 			INFO_LOG("End of command!");
 		} else {
 			ERROR_LOG("Isn't database request!");
+			return returnableValue;
 		}
-		
+
+		if (returnableValue) {
+			returnableValue = checkKeyWords(buffer);
+			if (!returnableValue) {
+				return false;
+			}
+		}
+
 		return returnableValue;
 	}
 
-	
+	bool keyWordsToUpper(std::vector<std::string> &buffer) {
+
+		std::string temp;
+
+		if (buffer.empty()) {
+			FATAL_LOG("EMPTY VEC BUFFER");
+			return false;
+		}
+
+		for (size_t i = 0; i < buffer.size(); i++) {
+
+			temp = buffer.at(i);
+			std::transform(temp.begin(), temp.end(), temp.begin(), ::toupper);
+
+			if (i == 0) {
+				buffer.at(i) = temp;
+				temp.clear();
+			} else if (i == (buffer.size() - 1)) {
+				buffer.at(i) = temp;
+				temp.clear();
+			} else {
+
+				bool isTypeOfData = (temp._Equal(keyWords.at(1))) ||
+					(temp._Equal(keyWords.at(2))) || (temp._Equal(keyWords.at(3)));
+
+				if (isTypeOfData) {
+					buffer.at(i) = temp;
+					temp.clear();
+					i++;
+				} else {
+					buffer.at(i) = temp;
+					temp.clear();
+				}
+			}
+		}
+
+		return true;
+	}
+
+	bool checkKeyWords(std::vector<std::string>& buffer) {
+
+		for (size_t i = 1; i < buffer.size() - 1; i++) {
+			std::string temp = buffer.at(i);
+			if (!checkArr(temp)) {
+				ERROR_LOG("Not a keyword<" + temp + ">");
+				return false;
+			}
+			bool isTypeOfData = (temp._Equal(keyWords.at(1))) ||
+				(temp._Equal(keyWords.at(2))) || (temp._Equal(keyWords.at(3)));
+			if (isTypeOfData) {
+				i++;
+			}
+		}
+
+		return true;
+	}
+
+	bool checkArr(const std::string& str) {
+
+		for (std::string& iter : keyWords) {
+			if (str._Equal(iter)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }

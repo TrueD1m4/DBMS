@@ -6,6 +6,9 @@
 #out
 out/
 
+#keystr
+DBMS/src/EncoderAndDecoder/*.cfg
+
 # User-specific files
 *.rsuser
 *.suo

@@ -4,14 +4,15 @@
 #define PARSER
 
 #include <string>
-#include <iterator>
 #include <vector>
 #include <array>
 #include <iostream>
 #include <algorithm>
 
 #include "../Logger/Logger.hpp"
-#include "../DataHandler/DataHandler.hpp"
+
+#define u8 uint8_t
+#define u16 uint16_t
 
 namespace Parser {
 
@@ -30,12 +31,17 @@ namespace Parser {
 		"DB", "INT", "DOUBLE", "STR", "ADD", "CHANGE", "REMOVE", "END"
 	};
 
-	uint16_t getCountOfSpaces(std::string str);
+	u16 getCountOfSpaces(std::string str);
 
 	std::string getSubStr(std::string& str);
 
-	bool readStr(std::vector<std::string> &buffer);
+	bool keyWordsToUpper(std::vector<std::string>& buffer);
 
+	bool checkArr(const std::string& str);
+
+	bool checkKeyWords(std::vector<std::string>& buffer);
+
+	bool readStr(std::vector<std::string> &buffer);
 }
 
 #endif // !PARSER
