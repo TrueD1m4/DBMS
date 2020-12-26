@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable : 26812)
 
 #ifndef LOGGER
 #define LOGGER
@@ -53,9 +54,7 @@ namespace Logger {
 	private:
 		FileSink m_sink;
 	};
-	
 }
-
 
 inline Logger::Logger& getLogger() {
 	std::string path = "data.log";

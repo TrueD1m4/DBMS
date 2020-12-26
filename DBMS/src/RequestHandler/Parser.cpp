@@ -17,7 +17,7 @@ namespace Parser {
 	std::string getSubStr(std::string& str) {
 		//get size of word
 		int position = 0;
-		for(size_t i = 0; i < str.length(); i++) {
+		for (size_t i = 0; i < str.length(); i++) {
 			if (i == 0 && str[i] == ' ') {
 				position = -1;
 				break;
@@ -33,7 +33,7 @@ namespace Parser {
 			return "0";
 
 		} else {
-			
+
 			std::string substr;
 
 			if (position != 0) {
@@ -47,12 +47,12 @@ namespace Parser {
 		}
 	}
 
-	bool readStr(std::vector<std::string> &buffer) {
+	ReadState readStr(std::vector<std::string>& buffer) {
 		std::string temp;
 		std::getline(std::cin, temp);
 		if (temp.empty()) {
 			WARN_LOG("Empty string!");
-			return false;
+			return readState::EMPTYSTR;
 		}
 
 		u16 countOfWords = getCountOfSpaces(temp);
@@ -63,7 +63,7 @@ namespace Parser {
 
 			if (str._Equal("0")) {
 				buffer.clear();
-				return false;
+				return readState::BADSTR;
 			}
 
 			buffer.push_back(str);
@@ -73,16 +73,14 @@ namespace Parser {
 		size_t lastPos = buffer.size() - 1;
 
 		//transform vec of str's to uppercase
-		bool returnableValue = keyWordsToUpper(buffer);
-		if (!returnableValue) {
-			return false;
+		if (!keyWordsToUpper) {
+			return readState::BADCAST;
 		}
 
-		returnableValue = 
-			(buffer.at(0)._Equal(*keyWords.begin())) && 
+		bool isDbReq =
+			(buffer.at(0)._Equal(*keyWords.begin())) &&
 			(buffer.at(lastPos)._Equal(keyWords[keyWords.size() - 1]));
-
-		if (returnableValue) {
+		if (isDbReq) {
 			INFO_LOG("Your commands is:");
 			for (auto& str : buffer) {
 				TRACE_LOG("<" + str + ">");
@@ -90,20 +88,17 @@ namespace Parser {
 			INFO_LOG("End of command!");
 		} else {
 			ERROR_LOG("Isn't database request!");
-			return returnableValue;
+			return readState::NOTDBREQ;
 		}
 
-		if (returnableValue) {
-			returnableValue = checkKeyWords(buffer);
-			if (!returnableValue) {
-				return false;
-			}
+		if (!checkKeyWords(buffer)) {
+			return readState::KWERR;
 		}
 
-		return returnableValue;
+		return readState::FINE;
 	}
 
-	bool keyWordsToUpper(std::vector<std::string> &buffer) {
+	bool keyWordsToUpper(std::vector<std::string>& buffer) {
 
 		std::string temp;
 
