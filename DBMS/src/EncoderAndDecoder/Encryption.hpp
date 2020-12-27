@@ -17,11 +17,26 @@
 namespace encryption {
 
 	/*
-	Encryption for database	
-	The algotihm DES will be used for encryption data of db and structure 
+	Encryption for database
+	The algotihm DES will be used for encryption data of db and structure
 	for this data.
 	*/
-	class Encoder {
+
+	struct Settings {
+		//TODO: add functionality to UNICODE
+#ifdef _UNICODE
+		const u8 sizeOfBlock = 128; //size of block into DES
+		const u8 sizeOfChar = 16; //size of char in unicode
+#else
+		const u8 sizeOfBlock = 64; //size of block into DES
+		const u8 sizeOfChar = 8; //size of char in utf-8
+#endif
+
+		const u8 shfitKey = 2; //shift 
+		const u8 quantityOfRonuds = 16;
+	};
+
+	class Encoder : private Settings {
 	public:
 
 		Encoder() = default;
@@ -34,18 +49,34 @@ namespace encryption {
 			ENCODED
 		};
 		
+		State getState();
+
 	private:
-		State stateOfEncoding;
-		//TODO: add functionality to UNICODE
-		const u8 sizeOfBlock = 64; //size of block into DES
-		const u8 sizeOfChar = 8; //size of char in utf-8
-		const u8 shfitKey = 2; //shift 
-		const u8 quantityOfRonuds = 16;
+		State m_stateOfEncoding;
+		State setState();
 
 		std::vector<std::bitset<8>> blocks;
 	};
 
-	class Decoder{};
+	class Decoder : private Settings {
+	public:
+
+		Decoder() = default;
+		~Decoder() = default;
+
+	public:
+		enum class State : u8 {
+			FAIL,
+			WORKING,
+			DECODED
+		};
+
+		State getState();
+
+	private:
+		State m_stateOfDecoding;
+		State setState();
+	};
 
 }
 #endif // !ENCRYPTION

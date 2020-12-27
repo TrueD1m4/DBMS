@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "src/Menu.hpp"
+#include "src/MenuHandler/Menu.hpp"
 #include "src/Logger/Logger.hpp"
-#include "src/RequestParser/Parser.hpp"
+#include "src/RequestHandler/Parser.hpp"
 
 #define VERSION 0.0.1

@@ -16,7 +16,7 @@
 #define u16 uint16_t
 
 namespace parser {
-
+	//tested, same as cpp
 	enum class ReadState : u8 {
 		FINE,
 		EMPTYSTR,
