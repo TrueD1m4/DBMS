@@ -1,6 +1,6 @@
 #include "Menu.hpp"
 
-namespace Menu {
+namespace menu {
 
 	uint8_t getMenu() noexcept {
 		uint8_t value = 0;

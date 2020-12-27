@@ -1,3 +1,3 @@
 #include "FileWorker.hpp"
 
-namespace FileWorker{}
+namespace fileWorker{}

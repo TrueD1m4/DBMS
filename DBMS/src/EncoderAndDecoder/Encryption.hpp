@@ -14,7 +14,7 @@
 #define u8 uint8_t
 #define Stringify(msg) #msg
 
-namespace Encryption {
+namespace encryption {
 
 	/*
 	Encryption for database	

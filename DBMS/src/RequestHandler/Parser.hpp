@@ -15,7 +15,7 @@
 #define u8 uint8_t
 #define u16 uint16_t
 
-namespace Parser {
+namespace parser {
 
 	enum class ReadState : u8 {
 		FINE,

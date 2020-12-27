@@ -8,7 +8,7 @@
 #include <filesystem>
 #include <string>
 
-namespace FileWorker{}
+namespace fileWorker{}
 
 #endif // !
 

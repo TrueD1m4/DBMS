@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-namespace Menu {
+namespace menu {
 
 	uint8_t getMenu() noexcept;
 

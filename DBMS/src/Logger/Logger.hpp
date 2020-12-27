@@ -10,7 +10,7 @@
 #include <vector>
 #include <thread>
 
-namespace Logger {
+namespace logger {
 
 	class FileSink {
 	public:
@@ -56,9 +56,9 @@ namespace Logger {
 	};
 }
 
-inline Logger::Logger& getLogger() {
+inline logger::Logger& getLogger() {
 	std::string path = "data.log";
-	static Logger::Logger logger(path);
+	static logger::Logger logger(path);
 
 	return logger;
 }
@@ -69,12 +69,12 @@ inline Logger::Logger& getLogger() {
 #define STR(x) STR_(x)
 
 //macroses 
-#define TRACE_LOG(msg) getLogger().log(Logger::Logger::Level::TRACE_LVL, __FILE__ " : " STR(__LINE__), (msg))
-#define DEBUG_LOG(msg) getLogger().log(Logger::Logger::Level::DEBUG_LVL, __FILE__ " : " STR(__LINE__), (msg))
-#define INFO_LOG(msg) getLogger().log(Logger::Logger::Level::INFO_LVL, __FILE__ " : " STR(__LINE__), (msg))
-#define WARN_LOG(msg) getLogger().log(Logger::Logger::Level::WARN_LVL, __FILE__ " : " STR(__LINE__), (msg))
-#define ERROR_LOG(msg) getLogger().log(Logger::Logger::Level::ERROR_LVL, __FILE__ " : " STR(__LINE__), (msg))
-#define FATAL_LOG(msg) getLogger().log(Logger::Logger::Level::FATAL_LVL, __FILE__ " : " STR(__LINE__), (msg))
+#define TRACE_LOG(msg) getLogger().log(logger::Logger::Level::TRACE_LVL, __FILE__ " : " STR(__LINE__), (msg))
+#define DEBUG_LOG(msg) getLogger().log(logger::Logger::Level::DEBUG_LVL, __FILE__ " : " STR(__LINE__), (msg))
+#define INFO_LOG(msg) getLogger().log(logger::Logger::Level::INFO_LVL, __FILE__ " : " STR(__LINE__), (msg))
+#define WARN_LOG(msg) getLogger().log(logger::Logger::Level::WARN_LVL, __FILE__ " : " STR(__LINE__), (msg))
+#define ERROR_LOG(msg) getLogger().log(logger::Logger::Level::ERROR_LVL, __FILE__ " : " STR(__LINE__), (msg))
+#define FATAL_LOG(msg) getLogger().log(logger::Logger::Level::FATAL_LVL, __FILE__ " : " STR(__LINE__), (msg))
 
 
 #endif // !LOGGER

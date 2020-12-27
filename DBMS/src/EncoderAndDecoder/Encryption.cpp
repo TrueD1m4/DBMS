@@ -1,3 +1,3 @@
 #include "Encryption.hpp"
 
-namespace Encryption{}
+namespace encryption{}

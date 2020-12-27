@@ -1,6 +1,6 @@
 #include "Logger.hpp"
 
-namespace Logger {
+namespace logger {
 
 	FileSink::FileSink(const std::string& fileName, std::size_t buffer_size = 4096u) : m_buffer(buffer_size),
 		m_output(fileName), m_offset(0u) {

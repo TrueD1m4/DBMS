@@ -1,6 +1,6 @@
 #include "Parser.hpp"
 
-namespace Parser {
+namespace parser {
 
 	u16 getCountOfSpaces(std::string str) {
 		u16 count = 0;
