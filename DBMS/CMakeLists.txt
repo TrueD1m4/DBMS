@@ -7,5 +7,5 @@ add_executable (DBMS "DBMS.cpp" "DBMS.hpp"
 	"src/RequestParser/Parser.hpp" "src/RequestParser/Parser.cpp"
 	"src/FileWorker/FileWorker.hpp" "src/FileWorker/FileWorker.cpp"
 	"src/EncoderAndDecoder/Encryption.hpp" "src/EncoderAndDecoder/Encryption.cpp"
-	 
-)
+	"src/Core/Core.hpp" "src/Core/Core.cpp" 
+ )
