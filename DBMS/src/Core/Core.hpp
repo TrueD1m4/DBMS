@@ -26,7 +26,28 @@
 
 namespace core {
 	
-	
+	class SystemKernel {
+	private:
+		SystemKernel();
+		virtual ~SystemKernel();
+
+	private:
+
+		static SystemKernel* c_sys_kernel;
+		bool m_isExists = false;
+
+	public:
+
+		SystemKernel(const SystemKernel& other) = delete;
+		SystemKernel& operator= (const SystemKernel& other) = delete;
+
+		SystemKernel* getInstance();
+		bool isExists();
+		bool deleteInstance();
+
+	public:
+
+	};
 
 }
 

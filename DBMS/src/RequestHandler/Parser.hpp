@@ -19,11 +19,11 @@ namespace parser {
 	//tested, same as cpp
 	enum class ReadState : u8 {
 		FINE,
-		EMPTYSTR,
-		BADSTR,
-		BADCAST,
-		NOTDBREQ,
-		KWERR
+		EMPTY_STR,
+		BAD_STR,
+		BAD_CAST,
+		NOT_DB_REQ,
+		KW_ERR
 	};
 
 	enum KeyWord {
@@ -46,7 +46,11 @@ namespace parser {
 	bool keyWordsToUpper(std::vector<std::string>& buffer);
 	bool checkArr(const std::string& str);
 	bool checkKeyWords(std::vector<std::string>& buffer);
-	ReadState readStr(std::vector<std::string> &buffer);
+	[[nodiscard]] ReadState readStr(std::vector<std::string> &buffer);
+
+	class BufferManager {
+
+	};
 }
 
 #endif // !PARSER

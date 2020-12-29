@@ -47,12 +47,12 @@ namespace parser {
 		}
 	}
 
-	ReadState readStr(std::vector<std::string>& buffer) {
+	[[nodiscard]] ReadState readStr(std::vector<std::string>& buffer) {
 		std::string temp;
 		std::getline(std::cin, temp);
 		if (temp.empty()) {
 			WARN_LOG("Empty string!");
-			return ReadState::EMPTYSTR;
+			return ReadState::EMPTY_STR;
 		}
 
 		u16 countOfWords = getCountOfSpaces(temp);
@@ -63,7 +63,7 @@ namespace parser {
 
 			if (str._Equal("0")) {
 				buffer.clear();
-				return ReadState::BADSTR;
+				return ReadState::BAD_STR;
 			}
 
 			buffer.push_back(str);
@@ -74,7 +74,7 @@ namespace parser {
 
 		//transform vec of str's to uppercase
 		if (!keyWordsToUpper(buffer)) {
-			return ReadState::BADCAST;
+			return ReadState::BAD_CAST;
 		}
 
 		bool isDbReq =
@@ -88,11 +88,11 @@ namespace parser {
 			INFO_LOG("End of command!");
 		} else {
 			ERROR_LOG("Isn't database request!");
-			return ReadState::NOTDBREQ;
+			return ReadState::NOT_DB_REQ;
 		}
 
 		if (!checkKeyWords(buffer)) {
-			return ReadState::KWERR;
+			return ReadState::KW_ERR;
 		}
 
 		return ReadState::FINE;
